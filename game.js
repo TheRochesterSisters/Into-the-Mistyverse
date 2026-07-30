@@ -42,6 +42,7 @@ const characters = {
     speed: 3,
     baseColor: '#d8e0e6',   // silver tabby
     stripeColor: '#a9b0b6'
+    frame: 0
   },
 
   Morningdew: {
