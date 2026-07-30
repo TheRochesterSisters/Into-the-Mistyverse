@@ -43,6 +43,10 @@ const characters = {
     baseColor: '#d8e0e6',   // silver tabby
     stripeColor: '#a9b0b6'
     frame: 0
+    idleFrame: 0,
+blinkTimer: 0,
+tailTimer: 0
+
 
   },
 
@@ -54,6 +58,10 @@ const characters = {
     baseColor: '#b7e3ff',   // soft blue-gray
     stripeColor: '#7fb6d4'
     frame: 0
+    idleFrame: 0,
+blinkTimer: 0,
+tailTimer: 0
+
 
   },
 
@@ -65,6 +73,10 @@ const characters = {
     baseColor: '#f2d7a2',   // sandy tan
     stripeColor: '#c9a86f'
     frame: 0
+    idleFrame: 0,
+    blinkTimer: 0,
+    tailTimer: 0
+
 
   },
 
@@ -87,6 +99,9 @@ const characters = {
     baseColor: '#cfc9ff',   // pale moon-lavender
     stripeColor: '#a59ad6'
     frame: 0
+idleFrame: 0,
+blinkTimer: 0,
+tailTimer: 0
 
   }
 };
