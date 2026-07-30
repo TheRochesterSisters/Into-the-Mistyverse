@@ -11,3 +11,39 @@ canvas {
   display: block;
   margin: 20px auto;
 }
+#characterSelect {
+  margin-top: 20px;
+}
+
+#characterSelect button {
+  background: #3b4f63;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#characterSelect button:hover {
+  background: #4f647a;
+}
+#mapSelect {
+  margin-top: 20px;
+}
+
+#mapSelect button {
+  background: #3b4f63;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#mapSelect button:hover {
+  background: #4f647a;
+}
