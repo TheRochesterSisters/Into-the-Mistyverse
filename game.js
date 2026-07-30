@@ -18,6 +18,15 @@ const maps = {
     trees: '#6b7080'
   }
 };
+function chooseMap(name) {
+  currentMap = maps[name];
+
+  // hide map menu
+  document.getElementById('mapSelect').style.display = 'none';
+
+  // show character menu
+  document.getElementById('characterSelect').style.display = 'block';
+}
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
