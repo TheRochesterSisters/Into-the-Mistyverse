@@ -117,18 +117,24 @@ function update() {
 }
 
 function drawBackground() {
-  ctx.fillStyle = '#1b2836';
+  if (!currentMap) return;
+
+  // sky/background
+  ctx.fillStyle = currentMap.background;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = '#243b2f';
+  // ground
+  ctx.fillStyle = currentMap.ground;
   ctx.fillRect(0, 350, canvas.width, 100);
 
-  ctx.fillStyle = '#3b4f63';
+  // trees / terrain shapes
+  ctx.fillStyle = currentMap.trees;
   for (let i = 0; i < 6; i++) {
     const x = i * 140 + 40;
     ctx.fillRect(x, 250, 30, 120);
   }
 }
+
 
 function drawPlayer() {
   if (!player) return;
