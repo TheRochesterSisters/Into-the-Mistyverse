@@ -43,6 +43,7 @@ const characters = {
     baseColor: '#d8e0e6',   // silver tabby
     stripeColor: '#a9b0b6'
     frame: 0
+
   },
 
   Morningdew: {
@@ -52,6 +53,8 @@ const characters = {
     speed: 3,
     baseColor: '#b7e3ff',   // soft blue-gray
     stripeColor: '#7fb6d4'
+    frame: 0
+
   },
 
   Flag: {
@@ -61,6 +64,8 @@ const characters = {
     speed: 3,
     baseColor: '#f2d7a2',   // sandy tan
     stripeColor: '#c9a86f'
+    frame: 0
+
   },
 
   Sundew: {
@@ -70,6 +75,8 @@ const characters = {
     speed: 3,
     baseColor: '#6b9e5c',   // leafy green
     stripeColor: '#4f7c45'
+    frame: 0
+
   },
 
   Moondrift: {
@@ -79,6 +86,8 @@ const characters = {
     speed: 3,
     baseColor: '#cfc9ff',   // pale moon-lavender
     stripeColor: '#a59ad6'
+    frame: 0
+
   }
 };
 
