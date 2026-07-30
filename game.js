@@ -13,6 +13,7 @@ const characters = {
     baseColor: '#d8e0e6',   // silver tabby
     stripeColor: '#a9b0b6'
   },
+
   Morningdew: {
     name: 'Morningdew',
     width: 45,
@@ -20,8 +21,36 @@ const characters = {
     speed: 3,
     baseColor: '#b7e3ff',   // soft blue-gray
     stripeColor: '#7fb6d4'
+  },
+
+  Flag: {
+    name: 'Flag',
+    width: 45,
+    height: 25,
+    speed: 3,
+    baseColor: '#f2d7a2',   // sandy tan
+    stripeColor: '#c9a86f'
+  },
+
+  Sundew: {
+    name: 'Sundew',
+    width: 45,
+    height: 25,
+    speed: 3,
+    baseColor: '#6b9e5c',   // leafy green
+    stripeColor: '#4f7c45'
+  },
+
+  Moondrift: {
+    name: 'Moondrift',
+    width: 45,
+    height: 25,
+    speed: 3,
+    baseColor: '#cfc9ff',   // pale moon-lavender
+    stripeColor: '#a59ad6'
   }
 };
+
 
 // Called when user clicks a character
 function chooseCharacter(name) {
