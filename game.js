@@ -155,22 +155,28 @@ function drawBackground() {
 function drawPlayer() {
   if (!player) return;
 
-  ctx.fillStyle = player.baseColor;
-  ctx.fillRect(player.x, player.y, player.width, player.height);
+  // animation frame toggle
+  const bounce = Math.sin(player.frame) * 2;
 
+  // body (bounces slightly)
+  ctx.fillStyle = player.baseColor;
+  ctx.fillRect(player.x, player.y + bounce, player.width, player.height);
+
+  // stripes
   ctx.strokeStyle = player.stripeColor;
   ctx.lineWidth = 2;
 
   for (let y = 8; y <= 20; y += 6) {
     ctx.beginPath();
-    ctx.moveTo(player.x + 5, player.y + y);
-    ctx.lineTo(player.x + 40, player.y + y);
+    ctx.moveTo(player.x + 5, player.y + y + bounce);
+    ctx.lineTo(player.x + 40, player.y + y + bounce);
     ctx.stroke();
   }
 
+  // name label
   ctx.fillStyle = '#ffffff';
   ctx.font = '14px sans-serif';
-  ctx.fillText(player.name, player.x - 10, player.y - 10);
+  ctx.fillText(player.name, player.x - 10, player.y - 10 + bounce);
 }
 
 function gameLoop() {
