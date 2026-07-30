@@ -1,37 +1,60 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-// Mistyleaf (silver tabby)
-const mistyleaf = {
-  name: 'Mistyleaf',
-  x: 100,
-  y: 300,
-  width: 45,
-  height: 25,
-  speed: 3,
-  baseColor: '#d8e0e6',   // silver-gray
-  stripeColor: '#a9b0b6'  // darker tabby stripes
+let player = null; // will be set after character selection
+
+// Character data
+const characters = {
+  Mistyleaf: {
+    name: 'Mistyleaf',
+    width: 45,
+    height: 25,
+    speed: 3,
+    baseColor: '#d8e0e6',   // silver tabby
+    stripeColor: '#a9b0b6'
+  },
+  Morningdew: {
+    name: 'Morningdew',
+    width: 45,
+    height: 25,
+    speed: 3,
+    baseColor: '#b7e3ff',   // soft blue-gray
+    stripeColor: '#7fb6d4'
+  }
 };
+
+// Called when user clicks a character
+function chooseCharacter(name) {
+  const data = characters[name];
+
+  player = {
+    ...data,
+    x: 100,
+    y: 300
+  };
+
+  // hide menu
+  document.getElementById('characterSelect').style.display = 'none';
+
+  // start game
+  gameLoop();
+}
 
 const keys = {};
 
-// keyboard input
-window.addEventListener('keydown', e => {
-  keys[e.key] = true;
-});
-
-window.addEventListener('keyup', e => {
-  keys[e.key] = false;
-});
+window.addEventListener('keydown', e => keys[e.key] = true);
+window.addEventListener('keyup', e => keys[e.key] = false);
 
 function update() {
-  if (keys['ArrowLeft']) mistyleaf.x -= mistyleaf.speed;
-  if (keys['ArrowRight']) mistyleaf.x += mistyleaf.speed;
-  if (keys['ArrowUp']) mistyleaf.y -= mistyleaf.speed;
-  if (keys['ArrowDown']) mistyleaf.y += mistyleaf.speed;
+  if (!player) return;
 
-  mistyleaf.x = Math.max(0, Math.min(canvas.width - mistyleaf.width, mistyleaf.x));
-  mistyleaf.y = Math.max(0, Math.min(canvas.height - mistyleaf.height, mistyleaf.y));
+  if (keys['ArrowLeft']) player.x -= player.speed;
+  if (keys['ArrowRight']) player.x += player.speed;
+  if (keys['ArrowUp']) player.y -= player.speed;
+  if (keys['ArrowDown']) player.y += player.speed;
+
+  player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
+  player.y = Math.max(0, Math.min(canvas.height - player.height, player.y));
 }
 
 function drawBackground() {
@@ -48,43 +71,32 @@ function drawBackground() {
   }
 }
 
-function drawMistyleaf() {
-  // body
-  ctx.fillStyle = mistyleaf.baseColor;
-  ctx.fillRect(mistyleaf.x, mistyleaf.y, mistyleaf.width, mistyleaf.height);
+function drawPlayer() {
+  if (!player) return;
 
-  // tabby stripes (simple lines)
-  ctx.strokeStyle = mistyleaf.stripeColor;
+  ctx.fillStyle = player.baseColor;
+  ctx.fillRect(player.x, player.y, player.width, player.height);
+
+  ctx.strokeStyle = player.stripeColor;
   ctx.lineWidth = 2;
 
-  // three stripes across her back
-  ctx.beginPath();
-  ctx.moveTo(mistyleaf.x + 5, mistyleaf.y + 8);
-  ctx.lineTo(mistyleaf.x + 40, mistyleaf.y + 8);
-  ctx.stroke();
+  for (let y = 8; y <= 20; y += 6) {
+    ctx.beginPath();
+    ctx.moveTo(player.x + 5, player.y + y);
+    ctx.lineTo(player.x + 40, player.y + y);
+    ctx.stroke();
+  }
 
-  ctx.beginPath();
-  ctx.moveTo(mistyleaf.x + 5, mistyleaf.y + 14);
-  ctx.lineTo(mistyleaf.x + 40, mistyleaf.y + 14);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(mistyleaf.x + 5, mistyleaf.y + 20);
-  ctx.lineTo(mistyleaf.x + 40, mistyleaf.y + 20);
-  ctx.stroke();
-
-  // name label
   ctx.fillStyle = '#ffffff';
   ctx.font = '14px sans-serif';
-  ctx.fillText(mistyleaf.name, mistyleaf.x - 10, mistyleaf.y - 10);
+  ctx.fillText(player.name, player.x - 10, player.y - 10);
 }
 
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBackground();
   update();
-  drawMistyleaf();
+  drawPlayer();
   requestAnimationFrame(gameLoop);
 }
 
-gameLoop();
