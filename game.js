@@ -1,4 +1,24 @@
 let currentMap = null;
+const maps = {
+  Forest: {
+    background: '#1b2836',
+    ground: '#243b2f',
+    trees: '#3b4f63'
+  },
+
+  Swamp: {
+    background: '#1a2420',
+    ground: '#2f3e35',
+    trees: '#4a5c4f'
+  },
+
+  Moor: {
+    background: '#2b2f3a',
+    ground: '#4a4f5c',
+    trees: '#6b7080'
+  }
+};
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
