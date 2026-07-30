@@ -177,6 +177,9 @@ function drawPlayer() {
   ctx.fillStyle = '#ffffff';
   ctx.font = '14px sans-serif';
   ctx.fillText(player.name, player.x - 10, player.y - 10 + bounce);
+// tail
+ctx.fillStyle = player.baseColor;
+ctx.fillRect(player.x + player.width, player.y + 10 + bounce, 10, 4);
 }
 
 function gameLoop() {
