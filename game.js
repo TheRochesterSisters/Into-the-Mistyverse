@@ -124,6 +124,12 @@ function update() {
 
   player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
   player.y = Math.max(0, Math.min(canvas.height - player.height, player.y));
+// animate only when moving
+if (keys['ArrowLeft'] || keys['ArrowRight'] || keys['ArrowUp'] || keys['ArrowDown']) {
+  player.frame += 0.15;
+} else {
+  player.frame = 0; // reset when standing
+}
 }
 
 function drawBackground() {
