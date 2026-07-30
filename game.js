@@ -88,6 +88,18 @@ tailTimer: 0
     baseColor: '#6b9e5c',   // leafy green
     stripeColor: '#4f7c45'
     frame: 0
+Mistyleaf: {
+  name: 'Mistyleaf',
+  width: 45,
+  height: 25,
+  speed: 3,
+  baseColor: '#d8e0e6',
+  stripeColor: '#a9b0b6',
+  frame: 0,
+  idleFrame: 0,
+  blinkTimer: 0,
+  tailTimer: 0
+}
 
   },
 
@@ -102,6 +114,18 @@ tailTimer: 0
 idleFrame: 0,
 blinkTimer: 0,
 tailTimer: 0
+Mistyleaf: {
+  name: 'Mistyleaf',
+  width: 45,
+  height: 25,
+  speed: 3,
+  baseColor: '#d8e0e6',
+  stripeColor: '#a9b0b6',
+  frame: 0,
+  idleFrame: 0,
+  blinkTimer: 0,
+  tailTimer: 0
+}
 
   }
 };
@@ -170,12 +194,21 @@ function drawBackground() {
 function drawPlayer() {
   if (!player) return;
 
-  // animation frame toggle
-  const bounce = Math.sin(player.frame) * 2;
+  const isMoving =
+    keys['ArrowLeft'] ||
+    keys['ArrowRight'] ||
+    keys['ArrowUp'] ||
+    keys['ArrowDown'];
 
-  // body (bounces slightly)
+  // walking bounce animation
+  const bounce = isMoving ? Math.sin(player.frame) * 2 : 0;
+
+  // idle breathing animation
+  const breathe = !isMoving ? Math.sin(player.idleFrame) * 1.5 : 0;
+
+  // body
   ctx.fillStyle = player.baseColor;
-  ctx.fillRect(player.x, player.y + bounce, player.width, player.height);
+  ctx.fillRect(player.x, player.y + bounce + breathe, player.width, player.height);
 
   // stripes
   ctx.strokeStyle = player.stripeColor;
@@ -183,24 +216,54 @@ function drawPlayer() {
 
   for (let y = 8; y <= 20; y += 6) {
     ctx.beginPath();
-    ctx.moveTo(player.x + 5, player.y + y + bounce);
-    ctx.lineTo(player.x + 40, player.y + y + bounce);
+    ctx.moveTo(player.x + 5, player.y + y + bounce + breathe);
+    ctx.lineTo(player.x + 40, player.y + y + bounce + breathe);
     ctx.stroke();
+  }
+
+  // tail swish (idle only)
+  if (!isMoving) {
+    const tailOffset = Math.sin(player.tailTimer) * 3;
+    ctx.fillStyle = player.baseColor;
+    ctx.fillRect(player.x + player.width, player.y + 10 + breathe + tailOffset, 10, 4);
+  } else {
+    // normal tail when walking
+    ctx.fillStyle = player.baseColor;
+    ctx.fillRect(player.x + player.width, player.y + 10 + bounce, 10, 4);
+  }
+
+  // blinking (idle only)
+  if (!isMoving) {
+    const blink = Math.sin(player.blinkTimer);
+    if (blink > 0.9) {
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(player.x + 15, player.y + bounce + breathe + 5, 10, 3);
+    }
   }
 
   // name label
   ctx.fillStyle = '#ffffff';
   ctx.font = '14px sans-serif';
-  ctx.fillText(player.name, player.x - 10, player.y - 10 + bounce);
-// tail
-ctx.fillStyle = player.baseColor;
-ctx.fillRect(player.x + player.width, player.y + 10 + bounce, 10, 4);
+  ctx.fillText(player.name, player.x - 10, player.y - 10 + bounce + breathe);
 }
+
 
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBackground();
   update();
+  // idle animation timers
+player.idleFrame += 0.01;        // slow breathing
+player.blinkTimer += 0.02;       // blinking cycle
+player.tailTimer += 0.03;        // tail swish cycle
+
+// reset idle animations when moving
+if (keys['ArrowLeft'] || keys['ArrowRight'] || keys['ArrowUp'] || keys['ArrowDown']) {
+  player.idleFrame = 0;
+  player.blinkTimer = 0;
+  player.tailTimer = 0;
+}
+
   drawPlayer();
   requestAnimationFrame(gameLoop);
 }
